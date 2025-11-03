@@ -48,18 +48,13 @@ def extract_text_from_file(file_obj, file_name):
         text = "\n".join(df[col].astype(str).str.cat(sep="\n") for col in df.columns)
 
     elif ext in ["jpg", "jpeg", "png", "bmp", "tiff", "webp"]:
-                
-        # -----------------------------
-        # Suppress GPU/pin_memory warnings
-        # -----------------------------
+                        
+        # Suppress warnings
         warnings.filterwarnings("ignore", message=".*pin_memory.*")
         warnings.filterwarnings("ignore", category=UserWarning, module="easyocr")
-        torch.backends.cudnn.enabled = False  # Disable CUDA backend
-        # -----------------------------
-        # Initialize EasyOCR reader (English only for speed)
-        # -----------------------------
-        reader = easyocr.Reader(['en'], gpu=False, download_enabled=True, model_storage_directory="./models")
 
+        # CPU-only EasyOCR
+        reader = easyocr.Reader(['en'], gpu=False, download_enabled=True, model_storage_directory="./models")
         try:
             # ✅ Convert uploaded image to NumPy array (no temp file, no URL)
             file_bytes = np.asarray(bytearray(file_obj.read()), dtype=np.uint8)
