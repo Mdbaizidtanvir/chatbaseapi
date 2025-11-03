@@ -77,8 +77,8 @@ sqlparse==0.5.3
 sympy==1.14.0
 tifffile==2025.10.16
 tld==0.13.1
-torch==2.9.0
-torchvision==0.24.0
+torch==2.2.0+cpu
+torchvision==0.17.0+cpu
 tqdm==4.67.1
 trafilatura==1.5.0
 typing-inspection==0.4.2
